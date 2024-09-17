@@ -18,6 +18,7 @@ public class TouristRepository {
     }
 
     public void populateAttractions(){
+
         attractions.add(new TouristAttraction("Den lille havfrue", "En lille havfrue", "København", (ArrayList<Tag>) Arrays.asList(Tag.STATUE, Tag.UNDERHOLDNING)));
         attractions.add(new TouristAttraction("Rundetårn", "Et højt rundt tårn", "København",(ArrayList<Tag>) Arrays.asList(Tag.STATUE, Tag.UNDERHOLDNING)));
         attractions.add(new TouristAttraction("Tivoli", "En forlystelsespark", "København", (ArrayList<Tag>) Arrays.asList(Tag.STATUE, Tag.UNDERHOLDNING)));
