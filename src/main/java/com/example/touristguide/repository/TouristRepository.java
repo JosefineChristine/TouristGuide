@@ -18,13 +18,12 @@ public class TouristRepository {
     }
 
     public void populateAttractions(){
-
-        attractions.add(new TouristAttraction("Den lille havfrue", "En lille havfrue", "København", (ArrayList<Tag>) Arrays.asList(Tag.STATUE, Tag.UNDERHOLDNING)));
-        attractions.add(new TouristAttraction("Rundetårn", "Et højt rundt tårn", "København",(ArrayList<Tag>) Arrays.asList(Tag.STATUE, Tag.UNDERHOLDNING)));
-        attractions.add(new TouristAttraction("Tivoli", "En forlystelsespark", "København", (ArrayList<Tag>) Arrays.asList(Tag.STATUE, Tag.UNDERHOLDNING)));
+        attractions.add(new TouristAttraction("Den lille havfrue", "En lille havfrue", "København", (ArrayList<Tag>) Arrays.asList(Tag.STATUE, Tag.SEVÆRDIGHED)));
+        attractions.add(new TouristAttraction("Rundetårn", "Et højt rundt tårn", "København",(ArrayList<Tag>) Arrays.asList(Tag.SEVÆRDIGHED, Tag.UNDERHOLDNING)));
+        attractions.add(new TouristAttraction("Tivoli", "En forlystelsespark", "København", (ArrayList<Tag>) Arrays.asList(Tag.FORLYSTELSESPARK, Tag.UNDERHOLDNING)));
     }
 
-    //TODO lave liste af tags om så der ikke skal castes? Og ændre tags på vher attraction
+    //TODO lave liste af tags om så der ikke skal castes?
 
     public ArrayList<TouristAttraction> getAllAttractions(){
         return attractions;
