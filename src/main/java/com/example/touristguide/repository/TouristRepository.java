@@ -30,12 +30,15 @@ public class TouristRepository {
     }
 
     public TouristAttraction findAttractionByName(String name){
-        for (TouristAttraction touristAttraction : attractions){
-            if (touristAttraction.getName().equalsIgnoreCase(name)){
-                return touristAttraction;
+        TouristAttraction touristAttraction = null;
+        for (TouristAttraction touristAttraction1 : attractions){
+            if (touristAttraction1.getName().equalsIgnoreCase(name)){
+                touristAttraction = touristAttraction1;
+            } else {
+                return null;
             }
         }
-        return null;
+        return touristAttraction;
     }
 
     public TouristAttraction addAttraction(TouristAttraction touristAttraction){

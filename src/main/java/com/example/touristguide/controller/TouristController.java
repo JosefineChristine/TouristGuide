@@ -5,6 +5,7 @@ import com.example.touristguide.service.TouristService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,38 +21,47 @@ public class TouristController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<TouristAttraction>> getAllAttractions(){
+    public String getAllAttractions(Model model) {
         List<TouristAttraction> attractions = touristService.getAllAttractions();
-        return new ResponseEntity<>(attractions, HttpStatus.OK);
+        model.addAttribute("attractions", attractions);
+        return "attractionList";
     }
 
     @GetMapping("/{name}")
-    public ResponseEntity<TouristAttraction> getAttractionByName(@PathVariable String name){
+    public String findAttractionByName(@RequestParam("name") String name, Model model) {
         TouristAttraction touristAttraction = touristService.findAttractionByName(name);
-        return new ResponseEntity<>(touristAttraction, HttpStatus.OK);
+        model.addAttribute("touristAttraction", touristAttraction);
+        return "attractionList"; //TODO lave ny HTML side til get name?
     }
+
+    //TODO get attractions/{name}/tags
 
     @PostMapping("/add")
-    public ResponseEntity<TouristAttraction> addAttraction(@RequestBody TouristAttraction touristAttraction){
-        TouristAttraction newTouristAttraction = touristService.addAttraction(touristAttraction);
-        return new ResponseEntity<>(newTouristAttraction, HttpStatus.CREATED);
-    }
+    public String addCocktail(@ModelAttribute TouristAttraction touristAttraction) {
+        touristService.addAttraction(touristAttraction);
+        return "redirect:/addTouristAttraction";
+    } //TODO lave HTML side til add
+
+    //TODO save: POST endpoint
+
+    //TODO edit: GET endpoint som kan edit
+
+//    @GetMapping("/{name}/edit")
+//    public String updateAttraction(@PathVariable String searchName, @RequestBody TouristAttraction touristAttraction){
+//        TouristAttraction newAttraction = touristService.updateAttraction(searchName, touristAttraction);
+//        return ;
+//}
+
+    //@PostMapping ("/update")
+
+    //TODO update skal ændres til at gemme ændringer
 
 
-    @PostMapping ("/update/{searchName}")
-    public ResponseEntity<TouristAttraction> updateAttraction(@PathVariable String searchName, @RequestBody TouristAttraction touristAttraction){
-        TouristAttraction newAttraction = touristService.updateAttraction(searchName, touristAttraction);
-        return new ResponseEntity<>(newAttraction, HttpStatus.OK);
-    }
-
-
-    @PostMapping ("/delete/{searchName}")
-    public ResponseEntity<HttpStatus> removeAttraction(@PathVariable String searchName){
+    @PostMapping("/delete/{searchName}")
+    public ResponseEntity<HttpStatus> removeAttraction(@PathVariable String searchName) {
         touristService.removeAttraction(searchName);
         return new ResponseEntity<>(HttpStatus.GONE);
-    }
-
-    //Kommentar til Tobias
-
+    } //TODO rette delete til at returnere en HTML side
+    //TODO kan ikke kalde på touristService?
 
 }
