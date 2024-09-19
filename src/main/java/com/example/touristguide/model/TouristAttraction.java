@@ -9,13 +9,13 @@ public class TouristAttraction {
     private String name;
     private String description;
     private String city;
-    private ArrayList<Tag> tags = new ArrayList<>();
+    private List<Tag> tags = new ArrayList<>();
 
     //***CONSTRUCTORS***------------------------------------------------------------------------------------------------
     public TouristAttraction(){
     }
 
-    public TouristAttraction(String name, String description, String city, ArrayList<Tag> tags) {
+    public TouristAttraction(String name, String description, String city, List<Tag> tags) {
         this.name = name;
         this.description = description;
         this.city = city;
@@ -47,11 +47,11 @@ public class TouristAttraction {
         this.city = city;
     }
 
-    public ArrayList<Tag> getTags(){
+    public List<Tag> getTags(){
         return tags;
     }
 
-    public void setTags(ArrayList<Tag> tags){
+    public void setTags(List<Tag> tags){
         this.tags = tags;
     }
 
