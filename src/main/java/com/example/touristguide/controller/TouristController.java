@@ -36,10 +36,9 @@ public class TouristController {
     public String findAttractionByName(@RequestParam("name") String name, Model model) {
         TouristAttraction touristAttraction = touristService.findAttractionByName(name);
         model.addAttribute("touristAttraction", touristAttraction);
-        return "attractionDetail"; //TODO lave ny HTML side til get name?
+        return "attractionDetail";
     }
 
-    //TODO get attractions/{name}/tags
     @GetMapping("/{name}/tags")
     public String getTagsFromAttraction(@RequestParam("name") String name, Model model){
         List<Tag> tagsFromAttraction = touristService.getTagsFromAttraction(name);
@@ -47,30 +46,30 @@ public class TouristController {
         return "tags";
     }
 
-    //***POST MAPPING METHODS***----------------------------------------------------------------------------------------
     @GetMapping("/add")
     public String addCocktail(@ModelAttribute TouristAttraction touristAttraction) {
         touristService.addAttraction(touristAttraction);
         return "redirect:/addAttraction";
-    } //TODO lave HTML side til add
+    }
 
-    //TODO @PostMapping("/save")
-
-//    TODO @GetMapping("/{name}/edit")
+    //    TODO @GetMapping("/{name}/edit")
 //    public String updateAttraction(@PathVariable String searchName, @RequestBody TouristAttraction touristAttraction){
 //        TouristAttraction newAttraction = touristService.updateAttraction(searchName, touristAttraction);
 //        return ;
 //}
 
-    //TODO @PostMapping ("/update")
+    //***POST MAPPING METHODS***----------------------------------------------------------------------------------------
 
+    //TODO @PostMapping("/save") //gemmer det som er added
+
+    //TODO @PostMapping ("/update") //opdaterer det som er edited
 
     @PostMapping("/delete/{searchName}")
     public ResponseEntity<HttpStatus> removeAttraction(@PathVariable String searchName) {
         touristService.removeAttraction(searchName);
         return new ResponseEntity<>(HttpStatus.GONE);
     } //TODO rette delete til at returnere en HTML side
-    //TODO kan ikke kalde på touristService?
+
 
     //***END***---------------------------------------------------------------------------------------------------------
 }

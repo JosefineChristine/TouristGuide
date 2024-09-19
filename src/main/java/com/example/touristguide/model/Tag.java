@@ -3,7 +3,6 @@ package com.example.touristguide.model;
 public enum Tag {
 
     //***ENUM***--------------------------------------------------------------------------------------------------------
-    //TODO lav andre tags ??
     STATUE          ("Statue"),
     SEVÆRDIGHED     ("Seværdighed"),
     FORLYSTELSESPARK("Forlystelsespark"),
