@@ -17,7 +17,7 @@ public class TouristRepository {
 
     //***CONSTRUCTOR***-------------------------------------------------------------------------------------------------
     public TouristRepository(){
-        populateAttractions();
+      //  populateAttractions();
     }
 
     //***METHODS***-----------------------------------------------------------------------------------------------------

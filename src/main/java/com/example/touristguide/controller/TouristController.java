@@ -3,13 +3,11 @@ package com.example.touristguide.controller;
 import com.example.touristguide.model.Tag;
 import com.example.touristguide.model.TouristAttraction;
 import com.example.touristguide.service.TouristService;
-import org.springframework.boot.Banner;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -47,9 +45,17 @@ public class TouristController {
     }
 
     @GetMapping("/add")
-    public String addCocktail(@ModelAttribute TouristAttraction touristAttraction) {
+    public String addAttraction(Model model) {
+        TouristAttraction touristAttraction = new TouristAttraction();
+        model.addAttribute("touristAttraction", touristAttraction);
+        model.addAttribute("tags", Arrays.asList(Tag.values()));
+        return "addAttraction";
+    }
+
+    @PostMapping("/save")
+    public String saveAttraction(@ModelAttribute TouristAttraction touristAttraction){
         touristService.addAttraction(touristAttraction);
-        return "redirect:/addAttraction";
+        return "redirect:/attractions/attractionList";
     }
 
     //    TODO @GetMapping("/{name}/edit")
@@ -60,15 +66,15 @@ public class TouristController {
 
     //***POST MAPPING METHODS***----------------------------------------------------------------------------------------
 
-    //TODO @PostMapping("/save") //gemmer det som er added
+
 
     //TODO @PostMapping ("/update") //opdaterer det som er edited
 
-    @PostMapping("/delete/{searchName}")
-    public ResponseEntity<HttpStatus> removeAttraction(@PathVariable String searchName) {
-        touristService.removeAttraction(searchName);
-        return new ResponseEntity<>(HttpStatus.GONE);
-    } //TODO rette delete til at returnere en HTML side
+//    @PostMapping("/delete/{searchName}")
+//    public ResponseEntity<HttpStatus> removeAttraction(@PathVariable String searchName) {
+//        touristService.removeAttraction(searchName);
+//        return new ResponseEntity<>(HttpStatus.GONE);
+//    } //TODO rette delete til at returnere en HTML side
 
 
     //***END***---------------------------------------------------------------------------------------------------------
