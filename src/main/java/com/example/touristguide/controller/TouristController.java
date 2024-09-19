@@ -48,25 +48,21 @@ public class TouristController {
     }
 
     //***POST MAPPING METHODS***----------------------------------------------------------------------------------------
-    @PostMapping("/add")
+    @GetMapping("/add")
     public String addCocktail(@ModelAttribute TouristAttraction touristAttraction) {
         touristService.addAttraction(touristAttraction);
-        return "redirect:/addTouristAttraction";
+        return "redirect:/addAttraction";
     } //TODO lave HTML side til add
 
-    //TODO save: POST endpoint
+    //TODO @PostMapping("/save")
 
-    //TODO edit: GET endpoint som kan edit
-
-//    @GetMapping("/{name}/edit")
+//    TODO @GetMapping("/{name}/edit")
 //    public String updateAttraction(@PathVariable String searchName, @RequestBody TouristAttraction touristAttraction){
 //        TouristAttraction newAttraction = touristService.updateAttraction(searchName, touristAttraction);
 //        return ;
 //}
 
-    //@PostMapping ("/update")
-
-    //TODO update skal ændres til at gemme ændringer
+    //TODO @PostMapping ("/update")
 
 
     @PostMapping("/delete/{searchName}")
