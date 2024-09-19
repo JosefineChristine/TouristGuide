@@ -1,7 +1,9 @@
 package com.example.touristguide.controller;
 
+import com.example.touristguide.model.Tag;
 import com.example.touristguide.model.TouristAttraction;
 import com.example.touristguide.service.TouristService;
+import org.springframework.boot.Banner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -34,10 +36,16 @@ public class TouristController {
     public String findAttractionByName(@RequestParam("name") String name, Model model) {
         TouristAttraction touristAttraction = touristService.findAttractionByName(name);
         model.addAttribute("touristAttraction", touristAttraction);
-        return "attractionList"; //TODO lave ny HTML side til get name?
+        return "attractionDetail"; //TODO lave ny HTML side til get name?
     }
 
     //TODO get attractions/{name}/tags
+    @GetMapping("/{name}/tags")
+    public String getTagsFromAttraction(@RequestParam("name") String name, Model model){
+        List<Tag> tagsFromAttraction = touristService.getTagsFromAttraction(name);
+        model.addAttribute("tagsFromAttraction", tagsFromAttraction);
+        return "tags";
+    }
 
     //***POST MAPPING METHODS***----------------------------------------------------------------------------------------
     @PostMapping("/add")

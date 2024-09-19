@@ -7,16 +7,20 @@ import org.springframework.stereotype.Repository;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @Repository
 public class TouristRepository {
 
+    //***ATTRIBUTES***--------------------------------------------------------------------------------------------------
     ArrayList<TouristAttraction> attractions = new ArrayList<>();
 
+    //***CONSTRUCTOR***-------------------------------------------------------------------------------------------------
     public TouristRepository(){
         populateAttractions();
     }
 
+    //***METHODS***-----------------------------------------------------------------------------------------------------
     public void populateAttractions(){
         attractions.add(new TouristAttraction("Den lille havfrue", "En lille havfrue", "København", (ArrayList<Tag>) Arrays.asList(Tag.STATUE, Tag.SEVÆRDIGHED)));
         attractions.add(new TouristAttraction("Rundetårn", "Et højt rundt tårn", "København",(ArrayList<Tag>) Arrays.asList(Tag.SEVÆRDIGHED, Tag.UNDERHOLDNING)));
@@ -65,4 +69,18 @@ public class TouristRepository {
         }
     }
 
+    //***attractions/{name)/tags***-------------------------------------------------------------------------------------
+    public List<Tag> getTagsFromAttraction(String name){
+        List<Tag> tagsFromAttraction = new ArrayList<>();
+        for (TouristAttraction touristAttraction : attractions){
+            if(touristAttraction.getName().equalsIgnoreCase(name)) {
+                tagsFromAttraction.addAll(touristAttraction.getTags());
+            }
+        }
+            return  tagsFromAttraction;
+    }
+
+
+
+    //***END***---------------------------------------------------------------------------------------------------------
 }

@@ -5,11 +5,13 @@ import java.util.List;
 
 public class TouristAttraction {
 
+    //***ATTRIBUTES***--------------------------------------------------------------------------------------------------
     private String name;
     private String description;
     private String city;
     private ArrayList<Tag> tags = new ArrayList<>();
 
+    //***CONSTRUCTORS***------------------------------------------------------------------------------------------------
     public TouristAttraction(){
     }
 
@@ -20,6 +22,7 @@ public class TouristAttraction {
         this.tags = tags;
     }
 
+    //***GETTER & SETTER METHODS***-------------------------------------------------------------------------------------
     public String getName(){
         return name;
     }
@@ -52,5 +55,5 @@ public class TouristAttraction {
         this.tags = tags;
     }
 
-
+    //***END***---------------------------------------------------------------------------------------------------------
 }
