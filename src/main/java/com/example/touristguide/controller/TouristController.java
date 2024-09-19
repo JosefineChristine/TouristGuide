@@ -14,12 +14,15 @@ import java.util.List;
 @RequestMapping("attractions")
 public class TouristController {
 
+    //***ATTRIBUTES***--------------------------------------------------------------------------------------------------
     private final TouristService touristService;
 
+    //***CONSTRUCTOR***-------------------------------------------------------------------------------------------------
     public TouristController(TouristService touristService) {
         this.touristService = touristService;
     }
 
+    //***GET MAPPING METHODS***-----------------------------------------------------------------------------------------
     @GetMapping("")
     public String getAllAttractions(Model model) {
         List<TouristAttraction> attractions = touristService.getAllAttractions();
@@ -36,6 +39,7 @@ public class TouristController {
 
     //TODO get attractions/{name}/tags
 
+    //***POST MAPPING METHODS***----------------------------------------------------------------------------------------
     @PostMapping("/add")
     public String addCocktail(@ModelAttribute TouristAttraction touristAttraction) {
         touristService.addAttraction(touristAttraction);
@@ -64,4 +68,5 @@ public class TouristController {
     } //TODO rette delete til at returnere en HTML side
     //TODO kan ikke kalde på touristService?
 
+    //***END***---------------------------------------------------------------------------------------------------------
 }
