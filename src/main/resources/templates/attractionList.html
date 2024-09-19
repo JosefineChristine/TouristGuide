@@ -8,6 +8,12 @@
 <body>
 <h1>Turistattraktioner:</h1>
 
+<ul>
+    <li th:each="turistAttraction : ${attractions}">
+        <a th:href="@{'/attraction/attraction?name=' + ${turistAttraction}}" th:text="${turistAttraction.getName()}"></a>
+    </li>
+</ul>
+
 <table>
     <tr>
         <th>Navn</th>
