@@ -6,7 +6,22 @@
     <link rel="stylesheet" th:href="@{/css/main.css}">
 </head>
 <body>
+<h1 th:text="${name}"> Tags</h1>
 
-<a href="/attractions">Tilbage</a>
+<table class="tabel tags">
+    <tr>
+        <th>Tags </th>
+        </tr>
+    <tbody>
+    <tr th:each="tags : ${tagsFromAttraction}">
+        <td th:text="${tags.getDisplayName()}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<form th:action="@{/attractions}" method="get">
+    <button type="submit">Tilbage</button>
+</form>
+
 </body>
 </html>

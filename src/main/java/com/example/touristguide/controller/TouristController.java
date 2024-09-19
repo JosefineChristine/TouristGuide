@@ -21,7 +21,7 @@ public class TouristController {
         this.touristService = touristService;
     }
 
-    //***GET MAPPING METHODS***-----------------------------------------------------------------------------------------
+    //***MAPPING METHODS***---------------------------------------------------------------------------------------------
     @GetMapping("")
     public String getAllAttractions(Model model) {
         List<TouristAttraction> attractions = touristService.getAllAttractions();
@@ -37,7 +37,7 @@ public class TouristController {
     }
 
     @GetMapping("/{name}/tags")
-    public String getTagsFromAttraction(@RequestParam("name") String name, Model model){
+    public String getTagsFromAttraction(@PathVariable("name") String name, Model model){
         List<Tag> tagsFromAttraction = touristService.getTagsFromAttraction(name);
         model.addAttribute("tagsFromAttraction", tagsFromAttraction);
         return "tags";
@@ -62,9 +62,6 @@ public class TouristController {
 //        TouristAttraction newAttraction = touristService.updateAttraction(searchName, touristAttraction);
 //        return ;
 //}
-
-    //***POST MAPPING METHODS***----------------------------------------------------------------------------------------
-
 
 
     //TODO @PostMapping ("/update") //opdaterer det som er edited

@@ -2,50 +2,40 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Attraction List</title>
+    <title>Seværdighedsliste</title>
     <link rel="stylesheet" th:href="@{/css/main.css}">
 </head>
 <body>
+
 <h1>Turistattraktioner:</h1>
 
-<ul>
-    <li th:each="turistAttraction : ${attractions}">
-        <a th:href="@{'/attraction/attraction?name=' + ${turistAttraction}}" th:text="${turistAttraction.getName()}"></a>
-    </li>
-</ul>
-
-<table>
-    <tr>
-        <th>Navn</th>
-        <th>Beskrivelse</th>
-        <th>By</th>
-        <th> </th>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>Opdater</td>
-        <td>Slet</td>
-        <td>Tags</td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>Opdater</td>
-        <td>Slet</td>
-        <td>Tags</td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>Opdater</td>
-        <td>Slet</td>
-        <td>Tags</td>
-    </tr>
-</table>
+    <table class="tabel a">
+        <thread>
+            <tr>
+                <th scope="col">By</th>
+                <th scope="col">Navn</th>
+                <th scope="col">Beskrivelse</th>
+                <th></th>
+            </tr>
+        </thread>
+        <tbody>
+        <tr th:each="TouristAttraction : ${attractions}">
+            <td th:text="${TouristAttraction.getCity()}"/>
+            <td th:text="${TouristAttraction.name}"/>
+            <td th:text="${TouristAttraction.description}"/>
+            <td><button th:method="Submit">Opdater</button></td>
+            <td><button th:method="Submit">Slet</button></td>
+            <td>
+                <a th:href="@{'/attractions/' + ${TouristAttraction.name} + '/tags'}">
+                <input type="button" value="tags">
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+<form th:action="@{/attractions/add}" method="get">
+    <button type="submit">Tilføj attraktion</button>
+</form>
 
 </body>
 </html>
