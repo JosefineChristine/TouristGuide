@@ -69,7 +69,6 @@ public class TouristController {
         return "updateAttraction";
     }
 
-
     //TODO @PostMapping ("/update") //opdaterer det som er edited
     @PostMapping("/update")
     public String updateAttraction(@RequestBody String name, @ModelAttribute TouristAttraction touristAttraction){
