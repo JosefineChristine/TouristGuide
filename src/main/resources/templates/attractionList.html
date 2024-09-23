@@ -31,23 +31,27 @@
             </td>
 
             <td>
-            <a th:href="@{'/attractions/' + ${TouristAttraction.name} + '/remove'}">
-                <input type="button" value="Slet">
-            </a>
-            </td>
+                <!-- <a th:href="@{'/attractions/' + ${TouristAttraction.name} + '/remove'}">
+                     <input type="button" value="Slet"> --->
+                
+                     <form th:action="@{/attractions/{name}/remove}" method="post">
+                         <button type="submit">Slet</button>
+                     </form>
+                 </a>
+                 </td>
 
-            <td>
-                <a th:href="@{'/attractions/' + ${TouristAttraction.name} + '/tags'}">
-                <input type="button" value="Tags">
-                </a>
-            </td>
+                 <td>
+                     <a th:href="@{'/attractions/' + ${TouristAttraction.name} + '/tags'}">
+                     <input type="button" value="Tags">
+                     </a>
+                 </td>
 
-        </tr>
-        </tbody>
-    </table>
-<form th:action="@{/attractions/add}" method="get">
-    <button type="submit">Tilføj attraktion</button>
-</form>
+             </tr>
+             </tbody>
+         </table>
+     <form th:action="@{/attractions/add}" method="get">
+         <button type="submit">Tilføj attraktion</button>
+     </form>
 
-</body>
-</html>
+     </body>
+     </html>

@@ -78,7 +78,7 @@ public class TouristRepository {
 //        return touristAttraction;
 //    }
 
-    public void removeAttraction(String searchName){
+    public void removeAttraction(String searchName, TouristAttraction touristAttraction){
         for (TouristAttraction attraction : attractions) {
             if (attraction.getName().equalsIgnoreCase(searchName)) {
                 attractions.remove(attraction);

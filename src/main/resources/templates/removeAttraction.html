@@ -6,32 +6,8 @@
     <link rel="stylesheet" th:href="@{/css/main.css}">
 </head>
 <body>
-<h1>Vælg attraktion som du vil slette: </h1>
 
-<table class="tabel b">
-    <thread>
-        <tr>
-            <th scope="col">By</th>
-            <th scope="col">Navn</th>
-            <th scope="col">Beskrivelse</th>
-            <th></th>
-        </tr>
-    </thread>
-    <tbody>
-    <tr th:each="TouristAttraction : ${attractions}">
-        <td th:text="${touristAttraction.getCity()}"/>
-        <td th:text="${TouristAttraction.name}"/>
-        <td th:text="${TouristAttraction.description}"/>
-        <td>
-            <a th:href="@{'/attractions/' + ${TouristAttraction.name} + '/remove'}">
-                <input type="button" value="Vælg attraktion">
-            </a>
-        </td>
-    </tbody>
-</table>
-<form th:action="@{/attractions}" method="get">
-    <button type="submit">Tilbage</button>
-</form>
+<p th:text="name">Attraktion er slettet</p>
 
 </body>
 </html>

@@ -57,7 +57,7 @@ public class    TouristController {
         return "redirect:/attractions/attractionList";
     }
 
-
+    //***(/update)***---------------------------------------------------------------------------------------------------
     @GetMapping("/{name}/edit")
     public String editAttraction(@PathVariable ("name") String name, Model model){
         TouristAttraction touristAttraction = touristService.findAttractionByName(name);
@@ -80,15 +80,15 @@ public class    TouristController {
 
     //***(/remove)***---------------------------------------------------------------------------------------------------
     @GetMapping("/{name}/remove")
-    public String removeFindAttraction(Model model){
-        TouristAttraction touristAttraction = new TouristAttraction();
+    public String findSpecificAttractionToRemove(@PathVariable("name") Model model, String searchName, TouristAttraction touristAttraction){
+        touristService.findAttractionByName(searchName);
         model.addAttribute("touristAttraction", touristAttraction);
         return "removeAttraction";
     }
 
     @PostMapping("/remove")
-    public String removeAttraction(@ModelAttribute String searchName){
-    touristService.removeAttraction(searchName);
+    public String removeAttraction(@ModelAttribute String searchName, TouristAttraction touristAttraction){
+    touristService.removeAttraction(searchName, touristAttraction);
     return "redirect:/attractions/removeAttraction";
     }
 
