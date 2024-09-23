@@ -9,9 +9,12 @@
 <body>
 <h1 th:text="${name}"> - Opdater informationer for attraktionen </h1>
 
-<form th:action="@{/attractions/{name}/edit}" th:object="${touristAttraction}" method="post">
-   <label for="name">Navn</label>
-   <input type="text" id="name" th:field="*{name}">
+    <form th:action="@{/attractions/{name}/update(name=${touristAttraction.name})}"
+          th:object="${touristAttraction}"
+          method="post">
+
+    <label for="name">Navn</label>
+    <input type="text" id="name" th:field="*{name}">
 
     <br><label for="description">Beskrivelse</label>
     <input type="text" id="description" th:field="*{description}">
@@ -23,15 +26,16 @@
     <br><th:block th:each="obj : ${tags}">
     <input type="checkbox" id="tags" th:field="*{tags}" th:value="${obj}" th:text="${obj.getDisplayName()}">
 </th:block>
+
+    <br><button type="submit">Gem ændringer</button>
 </form>
 
-    <br><form th:action="@{/attractions/update}" method="post"><button>Gem ændringer</button></form>
-    <!-- Dine ændringer er blevet gemt" når man har trykket. Sender ikke automatisk brugeren tilbage til forsiden-->
-
-
+<!-- gå tilbage til startside knap -->
 <form th:action="@{/attractions}" method="get">
     <button type="submit">Tilbage</button>
 </form>
+
+
 
 </body>
 </html>

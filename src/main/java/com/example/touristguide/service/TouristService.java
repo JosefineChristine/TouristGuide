@@ -28,16 +28,16 @@ public class TouristService {
         return touristRepository.findAttractionByName(name);
     }
 
-    public TouristAttraction addAttraction(TouristAttraction touristAttraction){
-        return touristRepository.addAttraction(touristAttraction);
+    public void addAttraction(TouristAttraction touristAttraction){
+                touristRepository.addAttraction(touristAttraction);
     }
 
-    public TouristAttraction updateAttraction(String searchName, TouristAttraction touristAttraction){
-        return touristRepository.updateAttraction(searchName, touristAttraction);
+    public void updateAttraction(TouristAttraction touristAttraction){
+                touristRepository.updateAttraction(touristAttraction);
     }
 
     public void removeAttraction(TouristAttraction touristAttraction){
-        touristRepository.removeAttraction(touristAttraction);
+                touristRepository.removeAttraction(touristAttraction);
     }
 
     public List<Tag> getTagsFromAttraction(String name){

@@ -5,7 +5,6 @@ import com.example.touristguide.service.TouristService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -59,28 +58,19 @@ public class    TouristController {
 
     //***(/update)***---------------------------------------------------------------------------------------------------
     @GetMapping("/{name}/edit")
-    public String editAttraction(@PathVariable ("name") String name, Model model){
+    public String AttractionEdit(@PathVariable("name") String name, Model model){
         TouristAttraction touristAttraction = touristService.findAttractionByName(name);
         model.addAttribute("touristAttraction", touristAttraction);
         model.addAttribute("name", touristAttraction.getName());
         model.addAttribute("description", touristAttraction.getDescription());
         model.addAttribute("city", touristAttraction.getCity());
         model.addAttribute("tags", Arrays.asList(Tag.values()));
-        //System.out.println("Model: " + model);
-        //System.out.println("Tourist attraction:" + touristAttraction);
         return "updateAttraction";
     }
 
-    //TODO @PostMapping ("/update") //opdaterer det som er edited
-//    @PostMapping("/update")
-//    public String updateAttraction(@RequestParam String name, @ModelAttribute TouristAttraction touristAttraction){
-//        touristService.updateAttraction(name, touristAttraction);
-//        return "redirect:/attractions";
-//    }
-
-    @PostMapping("/update")
-    public String updateAttraction(String searchName, @RequestParam String name, @RequestParam String description, @RequestParam String by, @RequestParam List<Tag> tags){
-        touristService.updateAttraction(searchName, name, description, by, tags);
+    @PostMapping("/{name}/update")
+    public String updateAttraction(@PathVariable("name") String name, @ModelAttribute TouristAttraction touristAttraction) {
+        touristService.updateAttraction(touristAttraction);
         return "redirect:/attractions";
     }
 

@@ -27,7 +27,7 @@ public class TouristRepository {
         attractions.add(new TouristAttraction("Tivoli", "En forlystelsespark", "København", Arrays.asList(Tag.FORLYSTELSESPARK, Tag.UNDERHOLDNING)));
     }
 
-    //***/attractions
+    //***/attractions***------------------------------------------------------------------------------------------------
     public ArrayList<TouristAttraction> getAllAttractions(){
         return attractions;
     }
@@ -43,49 +43,24 @@ public class TouristRepository {
     }
 
     //***/attractions/add***--------------------------------------------------------------------------------------------
-    public TouristAttraction addAttraction(TouristAttraction touristAttraction){
+    public void addAttraction(TouristAttraction touristAttraction){
         getAllAttractions().add(touristAttraction);
-        return touristAttraction;
     }
 
-    //***/attractions/{name}/update
-    //Skal der et TouristAttraction objekt ind i parameteret?
-    public TouristAttraction updateAttraction(String searchName, String name, String description, String city, List<Tag> tags){
-        for (TouristAttraction attraction : attractions){
-            if (attraction.getName().equalsIgnoreCase(searchName)){
-                attraction.setName(name);
-                attraction.setDescription(description);
-                attraction.setCity(city);
-                attraction.setTags(tags);
-                return attraction;
+    //***/attractions/{name}/update***----------------------------------------------------------------------------------
+    public void updateAttraction(TouristAttraction touristAttraction) {
+        for (TouristAttraction attraction : attractions) {
+            if (attraction.getName().equals(touristAttraction.getName())) {
+                attraction.setName(touristAttraction.getName());
+                attraction.setDescription(touristAttraction.getDescription());
+                attraction.setCity(touristAttraction.getCity());
+                attraction.setTags(touristAttraction.getTags());
+                break;
             }
         }
-        return null;
     }
 
-//    public TouristAttraction updateAttraction(String searchName){
-//        TouristAttraction touristAttraction = new TouristAttraction();
-//        for (TouristAttraction attraction : attractions){
-//            if (attraction.getName().equalsIgnoreCase(searchName)){
-//                touristAttraction.setName(touristAttraction.getName());
-//                touristAttraction.setDescription(touristAttraction.getDescription());
-//                touristAttraction.setCity(touristAttraction.getCity());
-//                touristAttraction.setTags(touristAttraction.getTags());
-//                attractions.remove(attraction);
-//                attractions.add(touristAttraction);
-//            }
-//        }
-//        return touristAttraction;
-//    }
-
-//    public void removeAttraction(String searchName){
-//        for (TouristAttraction attraction : attractions) {
-//            if (attraction.getName().equalsIgnoreCase(searchName)) {
-//                attractions.remove(attraction);
-//            }
-//        }
-//    }
-
+    //***/attractions/{name}/remove***----------------------------------------------------------------------------------
     public void removeAttraction(TouristAttraction touristAttraction){
         attractions.remove(touristAttraction);
     }
