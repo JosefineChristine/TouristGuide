@@ -11,7 +11,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("attractions")
-public class TouristController {
+public class    TouristController {
 
     //***ATTRIBUTES***--------------------------------------------------------------------------------------------------
     private final TouristService touristService;
@@ -86,7 +86,6 @@ public class TouristController {
         return "removeAttraction";
     }
 
-    //TODO remove("/remove)
     @PostMapping("/remove")
     public String removeAttraction(@ModelAttribute String searchName){
     touristService.removeAttraction(searchName);
