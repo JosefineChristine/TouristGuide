@@ -58,20 +58,39 @@ public class TouristController {
     }
 
     //    TODO @GetMapping("/{name}/edit")
-//    public String updateAttraction(@PathVariable String searchName, @RequestBody TouristAttraction touristAttraction){
-//        TouristAttraction newAttraction = touristService.updateAttraction(searchName, touristAttraction);
-//        return ;
-//}
+    @GetMapping("/{name}/edit")
+    public String editAttraction(Model model){
+        TouristAttraction touristAttraction = new TouristAttraction();
+        model.addAttribute("touristAttraction", touristAttraction);
+        model.addAttribute("name", touristAttraction.getName());
+        model.addAttribute("description", touristAttraction.getDescription());
+        model.addAttribute("city", touristAttraction.getCity());
+        model.addAttribute("tags", Arrays.asList(Tag.values()));
+        return "updateAttraction";
+    }
 
 
     //TODO @PostMapping ("/update") //opdaterer det som er edited
+    @PostMapping("/update")
+    public String updateAttraction(@RequestBody String name, @ModelAttribute TouristAttraction touristAttraction){
+        touristService.updateAttraction(name, touristAttraction);
+        return "redirect:/attractions/updateAttraction";
+    }
 
-//    @PostMapping("/delete/{searchName}")
-//    public ResponseEntity<HttpStatus> removeAttraction(@PathVariable String searchName) {
-//        touristService.removeAttraction(searchName);
-//        return new ResponseEntity<>(HttpStatus.GONE);
-//    } //TODO rette delete til at returnere en HTML side
+    //***(/remove)***---------------------------------------------------------------------------------------------------
+    @GetMapping("/{name}/remove")
+    public String removeFindAttraction(Model model){
+        TouristAttraction touristAttraction = new TouristAttraction();
+        model.addAttribute("touristAttraction", touristAttraction);
+        return "removeAttraction";
+    }
 
+    //TODO remove("/remove)
+    @PostMapping("/remove")
+    public String removeAttraction(@ModelAttribute String searchName){
+    touristService.removeAttraction(searchName);
+    return "redirect:/attractions/removeAttraction";
+    }
 
     //***END***---------------------------------------------------------------------------------------------------------
 }
