@@ -23,8 +23,19 @@
             <td th:text="${TouristAttraction.getCity()}"/>
             <td th:text="${TouristAttraction.name}"/>
             <td th:text="${TouristAttraction.description}"/>
-            <td><button th:method="Submit">Opdater</button></td>
-            <td><button th:method="Submit">Slet</button></td>
+            <td>
+
+            <a th:href="@{'/attractions/' + ${TouristAttraction.name} + '/edit'}">
+                <input type="button" value="Opdater">
+             </a>
+            </td>
+
+            <td>
+            <a th:href="@{'/attractions/' + ${TouristAttraction.name} + '/remove'}">
+                <input type="button" value="Slet">
+            </a>
+            </td>
+
             <td>
                 <a th:href="@{'/attractions/' + ${TouristAttraction.name} + '/tags'}">
                 <input type="button" value="tags">

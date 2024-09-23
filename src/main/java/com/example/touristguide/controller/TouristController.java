@@ -57,15 +57,17 @@ public class TouristController {
         return "redirect:/attractions/attractionList";
     }
 
-    //    TODO @GetMapping("/{name}/edit")
+
     @GetMapping("/{name}/edit")
-    public String editAttraction(Model model){
-        TouristAttraction touristAttraction = new TouristAttraction();
+    public String editAttraction(@PathVariable ("name") String name, Model model){
+        TouristAttraction touristAttraction = touristService.findAttractionByName(name);
         model.addAttribute("touristAttraction", touristAttraction);
         model.addAttribute("name", touristAttraction.getName());
         model.addAttribute("description", touristAttraction.getDescription());
         model.addAttribute("city", touristAttraction.getCity());
         model.addAttribute("tags", Arrays.asList(Tag.values()));
+        //System.out.println("Model: " + model);
+        //System.out.println("Tourist attraction:" + touristAttraction);
         return "updateAttraction";
     }
 

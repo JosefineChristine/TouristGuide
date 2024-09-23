@@ -37,8 +37,6 @@ public class TouristRepository {
         for (TouristAttraction touristAttraction1 : attractions){
             if (touristAttraction1.getName().equalsIgnoreCase(name)){
                 touristAttraction = touristAttraction1;
-            } else {
-                return null;
             }
         }
         return touristAttraction;
