@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<h1>Turistattraktioner:</h1>
+<h1>Turistattraktioner</h1>
 
     <table class="tabel a">
         <thread>
@@ -26,7 +26,7 @@
             <td>
 
             <a th:href="@{'/attractions/' + ${TouristAttraction.name} + '/edit'}">
-                <input type="button" value="Opdater">
+                <input class="button" type="button" value="Opdater">
              </a>
             </td>
 
@@ -35,7 +35,7 @@
                      <input type="button" value="Slet"> --->
 
                      <form th:action="@{/attractions/{name}/remove(name=${TouristAttraction.name})}" method="post">
-                         <button type="submit">Slet</button>
+                         <button class="button" type="submit">Slet</button>
                      </form>
 
                  </a>
@@ -43,7 +43,7 @@
 
                  <td>
                      <a th:href="@{'/attractions/' + ${TouristAttraction.name} + '/tags'}">
-                     <input type="button" value="Tags">
+                     <input class="button" type="button" value="Tags">
                      </a>
                  </td>
 
@@ -51,7 +51,8 @@
              </tbody>
          </table>
      <form th:action="@{/attractions/add}" method="get">
-         <button type="submit">Tilføj attraktion</button>
+         <br>
+         <button class="button" type="submit">Tilføj attraktion</button>
      </form>
 
      </body>

@@ -8,31 +8,32 @@
 
 <body>
 <h1 th:text="${name}"> - Opdater informationer for attraktionen </h1>
-
+<div class="add">
     <form th:action="@{/attractions/{name}/update(name=${touristAttraction.name})}"
           th:object="${touristAttraction}"
           method="post">
 
     <label for="name">Navn</label>
-    <input type="text" id="name" th:field="*{name}">
+    <input class="placeholder" type="text" id="name" th:field="*{name}">
 
     <br><label for="description">Beskrivelse</label>
-    <input type="text" id="description" th:field="*{description}">
+    <input class="placeholder" type="text" id="description" th:field="*{description}">
 
     <br><label for="city">By</label>
-    <input type="text" id="city" th:field="*{city}">
-
+    <input class="placeholder" type="text" id="city" th:field="*{city}">
+    <div class="tags">
     <br><label for="tags">Tags</label>
     <br><th:block th:each="obj : ${tags}">
-    <input type="checkbox" id="tags" th:field="*{tags}" th:value="${obj}" th:text="${obj.getDisplayName()}">
+    <input type="checkbox" id="tags" th:field="*{tags}" th:value="${obj}" th:text="${obj.getDisplayName()}"></div>
 </th:block>
+</div>
 
-    <br><button type="submit">Gem ændringer</button>
+    <br><button class="button" type="submit">Gem ændringer</button>
 </form>
 
 <!-- gå tilbage til startside knap -->
 <form th:action="@{/attractions}" method="get">
-    <button type="submit">Tilbage</button>
+    <button class="button" type="submit">Tilbage</button>
 </form>
 
 

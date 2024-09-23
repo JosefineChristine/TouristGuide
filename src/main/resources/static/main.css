@@ -1,7 +1,78 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: deeppink;
-    margin: 0;
-    padding: 0;
+    font-family: Helvetica, sans-serif;
+    background-color: beige;
+    margin: 20px;
+    padding-top: 20px;
+    padding-left: 20px;
 }
 
+h1 {
+    font-size: xx-large;
+}
+
+
+td {
+    border: solid 2px black;
+    text-align: center;
+    padding: 10px;
+    font-family: Helvetica;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+.button {
+  align-items: center;
+  appearance: none;
+  background-color: #fff;
+  border: 1px solid #dbdbdb;
+  border-radius: .375em;
+  box-shadow: none;
+  box-sizing: border-box;
+  color: #363636;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 0.875rem; /* Mindre tekststørrelse */
+  height: 2em; /* Mindre højde */
+  justify-content: center;
+  line-height: 1.5;.button-60:active {
+  padding: calc(.4em - 1px) 0.75em; /* Mindre padding */    border-color: #4a4a4a;
+  position: relative;    outline: 0;
+  text-align: center;}
+  user-select: none;
+  -webkit-user-select: none;.button-60:focus {
+  touch-action: manipulation;    border-color: #485fc7;
+  vertical-align: top;    outline: 0;
+  white-space: nowrap;}
+}
+.button {
+    border-color: #b5b5b5;
+}
+
+.button:focus:not(:active) {
+    box-shadow: rgba(72, 95, 199, .25) 0 0 0 .125em;
+}
+
+.add {
+    font-size: 16px;
+}
+
+.tags {
+    width: 39%;
+}
+
+.addLabel {
+    padding-right: 10px;
+}
+
+.placeholder {
+    color: black;
+    font-size: 15px;
+}
+
+th {
+    font-weight: bold;
+    font-size: 20px;
+}
