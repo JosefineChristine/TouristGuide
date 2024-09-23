@@ -54,7 +54,7 @@ public class    TouristController {
     @PostMapping("/save")
     public String saveAttraction(@ModelAttribute TouristAttraction touristAttraction){
         touristService.addAttraction(touristAttraction);
-        return "redirect:/attractions/attractionList";
+        return "redirect:/attractions";
     }
 
     //***(/update)***---------------------------------------------------------------------------------------------------
@@ -72,25 +72,25 @@ public class    TouristController {
     }
 
     //TODO @PostMapping ("/update") //opdaterer det som er edited
+//    @PostMapping("/update")
+//    public String updateAttraction(@RequestParam String name, @ModelAttribute TouristAttraction touristAttraction){
+//        touristService.updateAttraction(name, touristAttraction);
+//        return "redirect:/attractions";
+//    }
+
     @PostMapping("/update")
-    public String updateAttraction(@RequestBody String name, @ModelAttribute TouristAttraction touristAttraction){
-        touristService.updateAttraction(name, touristAttraction);
-        return "redirect:/attractions/updateAttraction";
+    public String updateAttraction(String searchName, @RequestParam String name, @RequestParam String description, @RequestParam String by, @RequestParam List<Tag> tags){
+        touristService.updateAttraction(searchName, name, description, by, tags);
+        return "redirect:/attractions";
     }
 
     //***(/remove)***---------------------------------------------------------------------------------------------------
-    @GetMapping("/{name}/remove")
-    public String findSpecificAttractionToRemove(@PathVariable("name") Model model, String searchName, TouristAttraction touristAttraction){
-        touristService.findAttractionByName(searchName);
-        model.addAttribute("touristAttraction", touristAttraction);
-        return "removeAttraction";
+    @PostMapping("/{name}/remove")
+    public String RemoveAttraction(@PathVariable String name){
+        TouristAttraction touristAttraction = touristService.findAttractionByName(name);
+        touristService.removeAttraction(touristAttraction);
+        return "redirect:/attractions";
     }
-
-    @PostMapping("/remove")
-    public String removeAttraction(@ModelAttribute String searchName, TouristAttraction touristAttraction){
-    touristService.removeAttraction(searchName, touristAttraction);
-    return "redirect:/attractions/removeAttraction";
-    }
-
+    
     //***END***---------------------------------------------------------------------------------------------------------
 }

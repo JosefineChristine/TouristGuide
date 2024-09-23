@@ -50,13 +50,13 @@ public class TouristRepository {
 
     //***/attractions/{name}/update
     //Skal der et TouristAttraction objekt ind i parameteret?
-    public TouristAttraction updateAttraction(String searchName, TouristAttraction touristAttraction){
+    public TouristAttraction updateAttraction(String searchName, String name, String description, String city, List<Tag> tags){
         for (TouristAttraction attraction : attractions){
             if (attraction.getName().equalsIgnoreCase(searchName)){
-                attraction.setName(touristAttraction.getName());
-                attraction.setDescription(touristAttraction.getDescription());
-                attraction.setCity(touristAttraction.getCity());
-                attraction.setTags(touristAttraction.getTags());
+                attraction.setName(name);
+                attraction.setDescription(description);
+                attraction.setCity(city);
+                attraction.setTags(tags);
                 return attraction;
             }
         }
@@ -78,12 +78,16 @@ public class TouristRepository {
 //        return touristAttraction;
 //    }
 
-    public void removeAttraction(String searchName, TouristAttraction touristAttraction){
-        for (TouristAttraction attraction : attractions) {
-            if (attraction.getName().equalsIgnoreCase(searchName)) {
-                attractions.remove(attraction);
-            }
-        }
+//    public void removeAttraction(String searchName){
+//        for (TouristAttraction attraction : attractions) {
+//            if (attraction.getName().equalsIgnoreCase(searchName)) {
+//                attractions.remove(attraction);
+//            }
+//        }
+//    }
+
+    public void removeAttraction(TouristAttraction touristAttraction){
+        attractions.remove(touristAttraction);
     }
 
     //***attractions/{name)/tags***-------------------------------------------------------------------------------------
