@@ -5,8 +5,37 @@
     <title>Update Attraction</title>
     <link rel="stylesheet" th:href="@{/css/main.css}">
 </head>
+
 <body>
-<h1>Opdater turistattraktion</h1>
+<h1 th:text="${name}"> - Opdater informationer for attraktionen </h1>
+
+    <form th:action="@{/attractions/{name}/update(name=${touristAttraction.name})}"
+          th:object="${touristAttraction}"
+          method="post">
+
+    <label for="name">Navn</label>
+    <input type="text" id="name" th:field="*{name}">
+
+    <br><label for="description">Beskrivelse</label>
+    <input type="text" id="description" th:field="*{description}">
+
+    <br><label for="city">By</label>
+    <input type="text" id="city" th:field="*{city}">
+
+    <br><label for="tags">Tags</label>
+    <br><th:block th:each="obj : ${tags}">
+    <input type="checkbox" id="tags" th:field="*{tags}" th:value="${obj}" th:text="${obj.getDisplayName()}">
+</th:block>
+
+    <br><button type="submit">Gem ændringer</button>
+</form>
+
+<!-- gå tilbage til startside knap -->
+<form th:action="@{/attractions}" method="get">
+    <button type="submit">Tilbage</button>
+</form>
+
+
 
 </body>
 </html>

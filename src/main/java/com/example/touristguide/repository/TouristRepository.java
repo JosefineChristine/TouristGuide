@@ -27,6 +27,7 @@ public class TouristRepository {
         attractions.add(new TouristAttraction("Tivoli", "En forlystelsespark", "København", Arrays.asList(Tag.FORLYSTELSESPARK, Tag.UNDERHOLDNING)));
     }
 
+    //***/attractions***------------------------------------------------------------------------------------------------
     public ArrayList<TouristAttraction> getAllAttractions(){
         return attractions;
     }
@@ -36,35 +37,32 @@ public class TouristRepository {
         for (TouristAttraction touristAttraction1 : attractions){
             if (touristAttraction1.getName().equalsIgnoreCase(name)){
                 touristAttraction = touristAttraction1;
-            } else {
-                return null;
             }
         }
         return touristAttraction;
     }
 
-    public TouristAttraction addAttraction(TouristAttraction touristAttraction){
+    //***/attractions/add***--------------------------------------------------------------------------------------------
+    public void addAttraction(TouristAttraction touristAttraction){
         getAllAttractions().add(touristAttraction);
-        return touristAttraction;
     }
 
-    public TouristAttraction updateAttraction(String searchName, TouristAttraction touristAttraction){
-        for (TouristAttraction attraction : attractions){
-            if (attraction.getName().equalsIgnoreCase(searchName)){
+    //***/attractions/{name}/update***----------------------------------------------------------------------------------
+    public void updateAttraction(TouristAttraction touristAttraction) {
+        for (TouristAttraction attraction : attractions) {
+            if (attraction.getName().equals(touristAttraction.getName())) {
                 attraction.setName(touristAttraction.getName());
                 attraction.setDescription(touristAttraction.getDescription());
-                return attraction;
+                attraction.setCity(touristAttraction.getCity());
+                attraction.setTags(touristAttraction.getTags());
+                break;
             }
         }
-        return null;
     }
 
-    public void removeAttraction(String searchName){
-        for (TouristAttraction attraction : attractions) {
-            if (attraction.getName().equalsIgnoreCase(searchName)) {
-                attractions.remove(attraction);
-            }
-        }
+    //***/attractions/{name}/remove***----------------------------------------------------------------------------------
+    public void removeAttraction(TouristAttraction touristAttraction){
+        attractions.remove(touristAttraction);
     }
 
     //***attractions/{name)/tags***-------------------------------------------------------------------------------------
@@ -77,8 +75,6 @@ public class TouristRepository {
         }
             return  tagsFromAttraction;
     }
-
-
 
     //***END***---------------------------------------------------------------------------------------------------------
 }

@@ -5,13 +5,12 @@ import com.example.touristguide.service.TouristService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Arrays;
 import java.util.List;
 
 @Controller
 @RequestMapping("attractions")
-public class TouristController {
+public class    TouristController {
 
     //***ATTRIBUTES***--------------------------------------------------------------------------------------------------
     private final TouristService touristService;
@@ -54,24 +53,34 @@ public class TouristController {
     @PostMapping("/save")
     public String saveAttraction(@ModelAttribute TouristAttraction touristAttraction){
         touristService.addAttraction(touristAttraction);
-        return "redirect:/attractions/attractionList";
+        return "redirect:/attractions";
     }
 
-    //    TODO @GetMapping("/{name}/edit")
-//    public String updateAttraction(@PathVariable String searchName, @RequestBody TouristAttraction touristAttraction){
-//        TouristAttraction newAttraction = touristService.updateAttraction(searchName, touristAttraction);
-//        return ;
-//}
+    //***(/update)***---------------------------------------------------------------------------------------------------
+    @GetMapping("/{name}/edit")
+    public String AttractionEdit(@PathVariable("name") String name, Model model){
+        TouristAttraction touristAttraction = touristService.findAttractionByName(name);
+        model.addAttribute("touristAttraction", touristAttraction);
+        model.addAttribute("name", touristAttraction.getName());
+        model.addAttribute("description", touristAttraction.getDescription());
+        model.addAttribute("city", touristAttraction.getCity());
+        model.addAttribute("tags", Arrays.asList(Tag.values()));
+        return "updateAttraction";
+    }
 
+    @PostMapping("/{name}/update")
+    public String updateAttraction(@PathVariable("name") String name, @ModelAttribute TouristAttraction touristAttraction) {
+        touristService.updateAttraction(touristAttraction);
+        return "redirect:/attractions";
+    }
 
-    //TODO @PostMapping ("/update") //opdaterer det som er edited
-
-//    @PostMapping("/delete/{searchName}")
-//    public ResponseEntity<HttpStatus> removeAttraction(@PathVariable String searchName) {
-//        touristService.removeAttraction(searchName);
-//        return new ResponseEntity<>(HttpStatus.GONE);
-//    } //TODO rette delete til at returnere en HTML side
-
-
+    //***(/remove)***---------------------------------------------------------------------------------------------------
+    @PostMapping("/{name}/remove")
+    public String RemoveAttraction(@PathVariable String name){
+        TouristAttraction touristAttraction = touristService.findAttractionByName(name);
+        touristService.removeAttraction(touristAttraction);
+        return "redirect:/attractions";
+    }
+    
     //***END***---------------------------------------------------------------------------------------------------------
 }
