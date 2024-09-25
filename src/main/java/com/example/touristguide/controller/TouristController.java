@@ -35,6 +35,7 @@ public class    TouristController {
         return "attractionDetail";
     }
 
+    //***(/tags)***-----------------------------------------------------------------------------------------------------
     @GetMapping("/{name}/tags")
     public String getTagsFromAttraction(@PathVariable("name") String name, Model model){
         List<Tag> tagsFromAttraction = touristService.getTagsFromAttraction(name);
@@ -42,6 +43,7 @@ public class    TouristController {
         return "tags";
     }
 
+    //***(/add)***------------------------------------------------------------------------------------------------------
     @GetMapping("/add")
     public String addAttraction(Model model) {
         TouristAttraction touristAttraction = new TouristAttraction();

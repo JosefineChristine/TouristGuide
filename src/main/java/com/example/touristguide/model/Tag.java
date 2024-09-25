@@ -16,7 +16,9 @@ public enum Tag {
     PARK            ("Park"),
     DESIGN          ("Design"),
     ARKITEKTUR      ("Arkitektur"),
-    MONUMENTER      ("Monumenter");
+    MONUMENTER      ("Monumenter"),
+    KUNST           ("Kunst"),
+    HISTORIE        ("Historie");
 
     //***ATTRIBUTES***--------------------------------------------------------------------------------------------------
     private final String displayName;
