@@ -19,10 +19,11 @@
     <br><th:block th:each="obj : ${tags}">
         <input type="checkbox" id="tags" th:field="*{tags}" th:value="${obj}" th:text="${obj.getDisplayName()}">
     </th:block> </div>
-</div>
+
     <br><button class="button" method="submit">Gem</button>
    <button class="button" href="/cocktails">Fortryd</button>
 </form>
+</div>
 
 </body>
 </html>
