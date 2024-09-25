@@ -56,6 +56,7 @@ public class TouristAttraction {
         this.tags = tags;
     }
 
+    //***EQUALS & HASHCODE(for testing)***------------------------------------------------------------------------------
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

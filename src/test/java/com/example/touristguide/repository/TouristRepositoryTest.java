@@ -50,7 +50,6 @@ class TouristRepositoryTest {
     @Test
     void addAttraction(){
         //arrange
-        ArrayList<TouristAttraction> expectedAttractions = new ArrayList<>();
         TouristAttraction touristAttraction = new TouristAttraction("Test", "Test beskrivelse", "Test by", Arrays.asList(Tag.STATUE, Tag.ARKITEKTUR));
 
         //act
@@ -67,6 +66,19 @@ class TouristRepositoryTest {
         assertEquals(actualName, expectedName);
     }
 
+    //Denne test er mere simpel (men vi har ikke lært assertTrue endnu)
+    //@Test
+    //void addAttraction() {
+    //    // Arrange
+    //    TouristAttraction touristAttraction = new TouristAttraction("Test", "Test beskrivelse", "Test by", Arrays.asList(Tag.STATUE, Tag.ARKITEKTUR));
+    //
+    //    // Act
+    //    touristRepository.addAttraction(touristAttraction); // Add the attraction
+    //
+    //    // Assert
+    //    assertTrue(touristRepository.getAllAttractions().contains(touristAttraction)); // Check if the attraction was added
+    //}
+
     @Test
     void removeAttraction(){
         //arrange
@@ -76,7 +88,9 @@ class TouristRepositoryTest {
         //act
         touristRepository.addAttraction(touristAttraction);
         touristRepository.removeAttraction(touristAttraction);
+
         String expectedName = null;
+
         for(TouristAttraction ta : touristRepository.attractions){
             if(ta.getName().equals("Test")){
                 expectedName = ta.getName();
@@ -87,6 +101,20 @@ class TouristRepositoryTest {
         //assert
         assertEquals(expectedName, touristAttraction1.getName());
     }
+
+    //Denne test er simplere og nemmere (men vi har ikke lært assertFalse endnu)
+//    @Test
+//    void removeAttraction() {
+//        // Arrange
+//        TouristAttraction touristAttraction = new TouristAttraction("Test", "Test beskrivelse", "Test by", Arrays.asList(Tag.STATUE, Tag.ARKITEKTUR));
+//        touristRepository.addAttraction(touristAttraction); // First, add the attraction
+//
+//        // Act
+//        touristRepository.removeAttraction(touristAttraction); // Then, remove the attraction
+//
+//        // Assert
+//        assertFalse(touristRepository.getAllAttractions().contains(touristAttraction)); // Check if the list no longer contains the attraction
+//    }
 
     @Test
     void updateAttraction() {
@@ -106,7 +134,7 @@ class TouristRepositoryTest {
     @Test
     void getTagsFromAttraction(){
         //arrange
-        int expectedSize = 2; //size fordi 'Den lille Havfrue' har 2 tags
+        int expectedSize = 2; //size fordi 'Den lille havfrue' har 2 tags
 
         //act
         int actualSize = touristRepository.getTagsFromAttraction("Den lille havfrue").size();
