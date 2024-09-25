@@ -10,7 +10,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("attractions")
-public class    TouristController {
+public class TouristController {
 
     //***ATTRIBUTES***--------------------------------------------------------------------------------------------------
     private final TouristService touristService;
@@ -60,7 +60,7 @@ public class    TouristController {
 
     //***(/update)***---------------------------------------------------------------------------------------------------
     @GetMapping("/{name}/edit")
-    public String AttractionEdit(@PathVariable("name") String name, Model model){
+    public String editAttraction(@PathVariable("name") String name, Model model){
         TouristAttraction touristAttraction = touristService.findAttractionByName(name);
         model.addAttribute("touristAttraction", touristAttraction);
         model.addAttribute("name", touristAttraction.getName());
@@ -78,7 +78,7 @@ public class    TouristController {
 
     //***(/remove)***---------------------------------------------------------------------------------------------------
     @PostMapping("/{name}/remove")
-    public String RemoveAttraction(@PathVariable String name){
+    public String removeAttraction(@PathVariable String name){
         TouristAttraction touristAttraction = touristService.findAttractionByName(name);
         touristService.removeAttraction(touristAttraction);
         return "redirect:/attractions";
