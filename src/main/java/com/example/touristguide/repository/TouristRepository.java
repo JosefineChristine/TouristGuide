@@ -22,7 +22,7 @@ public class TouristRepository {
 
     //***METHODS***-----------------------------------------------------------------------------------------------------
     public void populateAttractions(){
-        attractions.add(new TouristAttraction("Den lille havfrue", "Staute af den lille havfrue", "København, Indre By", Arrays.asList(Tag.STATUE, Tag.SEVÆRDIGHED)));
+        attractions.add(new TouristAttraction("Den lille havfrue", "Statue af den lille havfrue", "København, Indre By", Arrays.asList(Tag.STATUE, Tag.SEVÆRDIGHED)));
         attractions.add(new TouristAttraction("Rundetårn", "Et højt rundt tårn", "København, Indre By",Arrays.asList(Tag.SEVÆRDIGHED, Tag.UNDERHOLDNING, Tag.ARKITEKTUR)));
         attractions.add(new TouristAttraction("Dyrehavsbakken", "En forlystelsespark og en park ude i naturen", "Klampenborg", Arrays.asList(Tag.FORLYSTELSESPARK, Tag.UNDERHOLDNING, Tag.NATUR, Tag.PARK)));
         attractions.add(new TouristAttraction("Experimentarium", "Et interaktivt museeum", "København, Hellerup", Arrays.asList(Tag.MUSEUM, Tag.UNDERHOLDNING)));
@@ -58,7 +58,7 @@ public class TouristRepository {
                 attraction.setDescription(touristAttraction.getDescription());
                 attraction.setCity(touristAttraction.getCity());
                 attraction.setTags(touristAttraction.getTags());
-                break;
+                return;
             }
         }
     }
