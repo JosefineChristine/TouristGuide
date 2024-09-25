@@ -22,9 +22,12 @@ public class TouristRepository {
 
     //***METHODS***-----------------------------------------------------------------------------------------------------
     public void populateAttractions(){
-        attractions.add(new TouristAttraction("Den lille havfrue", "En lille havfrue", "København", Arrays.asList(Tag.STATUE, Tag.SEVÆRDIGHED)));
-        attractions.add(new TouristAttraction("Rundetårn", "Et højt rundt tårn", "København",Arrays.asList(Tag.SEVÆRDIGHED, Tag.UNDERHOLDNING)));
-        attractions.add(new TouristAttraction("Tivoli", "En forlystelsespark", "København", Arrays.asList(Tag.FORLYSTELSESPARK, Tag.UNDERHOLDNING)));
+        attractions.add(new TouristAttraction("Den lille havfrue", "Staute af den lille havfrue", "København, Indre By", Arrays.asList(Tag.STATUE, Tag.SEVÆRDIGHED)));
+        attractions.add(new TouristAttraction("Rundetårn", "Et højt rundt tårn", "København, Indre By",Arrays.asList(Tag.SEVÆRDIGHED, Tag.UNDERHOLDNING, Tag.ARKITEKTUR)));
+        attractions.add(new TouristAttraction("Dyrehavsbakken", "En forlystelsespark og en park ude i naturen", "Klampenborg", Arrays.asList(Tag.FORLYSTELSESPARK, Tag.UNDERHOLDNING, Tag.NATUR, Tag.PARK)));
+        attractions.add(new TouristAttraction("Experimentarium", "Et interaktivt museeum", "København, Hellerup", Arrays.asList(Tag.MUSEUM, Tag.UNDERHOLDNING)));
+        attractions.add(new TouristAttraction("Statens Museum for Kunst", "Kunst museum", "København, Indre By", Arrays.asList(Tag.MUSEUM, Tag.KUNST, Tag.HISTORIE)));
+        attractions.add(new TouristAttraction("Legoland", "En forlystelsespark", "Billund", Arrays.asList(Tag.FORLYSTELSESPARK, Tag.UNDERHOLDNING)));
     }
 
     //***/attractions***------------------------------------------------------------------------------------------------
