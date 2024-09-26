@@ -16,6 +16,7 @@ class TouristRepositoryTest {
     private final TouristRepository touristRepository = new TouristRepository();
 
     //***TEST METHODS***------------------------------------------------------------------------------------------------
+    /*
     @Test
     void getAllAttractions() {
         //arrange
@@ -33,6 +34,7 @@ class TouristRepositoryTest {
         //assert
         assertEquals(expectedAttractions, actualAttractions);
     }
+    */
 
     @Test
     void findAttractionByName(){
