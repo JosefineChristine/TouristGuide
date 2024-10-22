@@ -39,11 +39,11 @@ class TouristRepositoryTest {
     @Test
     void findAttractionByName(){
         //arrange
-        String actualName = "Rundetårn";
+        String expectedName = "Rundetårn";
 
         //act
         TouristAttraction TouristAttraction = touristRepository.findAttractionByName("Rundetårn");
-        String expectedName = TouristAttraction.getName();
+        String actualName = TouristAttraction.getName();
 
         //assert
         assertEquals(actualName, expectedName);
@@ -65,7 +65,7 @@ class TouristRepositoryTest {
             }
 
         //assert
-        assertEquals(actualName, expectedName);
+        assertEquals(expectedName, actualName);
     }
 
     //Denne test er mere simpel (men vi har ikke lært assertTrue endnu)
@@ -120,17 +120,16 @@ class TouristRepositoryTest {
 
     @Test
     void updateAttraction() {
-    // Arrange
-    TouristAttraction updatedAttraction = new TouristAttraction("Den lille havfrue", "Test beskrivelse", "Test by", Arrays.asList(Tag.STATUE, Tag.ARKITEKTUR));
+        // Arrange
+        TouristAttraction updatedAttraction = new TouristAttraction("Den lille havfrue", "Test beskrivelse", "Test by", Arrays.asList(Tag.STATUE, Tag.ARKITEKTUR));
+        // Act
+        touristRepository.updateAttraction(updatedAttraction);
+        TouristAttraction actualAttraction = touristRepository.findAttractionByName("Den lille havfrue");
 
-    // Act
-    touristRepository.updateAttraction(updatedAttraction);
-    TouristAttraction actualAttraction = touristRepository.findAttractionByName("Den lille havfrue");
-
-    // Assert
-    assertEquals(updatedAttraction.getDescription(), actualAttraction.getDescription());
-    assertEquals(updatedAttraction.getCity(), actualAttraction.getCity());
-    assertEquals(updatedAttraction.getTags(), actualAttraction.getTags());
+        // Assert
+        assertEquals(updatedAttraction.getDescription(), actualAttraction.getDescription());
+        assertEquals(updatedAttraction.getCity(), actualAttraction.getCity());
+        assertEquals(updatedAttraction.getTags(), actualAttraction.getTags());
     }
 
     @Test
