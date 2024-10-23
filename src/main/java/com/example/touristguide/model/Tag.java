@@ -1,5 +1,8 @@
 package com.example.touristguide.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum Tag {
 
     //***ENUM***--------------------------------------------------------------------------------------------------------
@@ -32,6 +35,17 @@ public enum Tag {
     //***GETTER METHOD***-----------------------------------------------------------------------------------------------
     public String getDisplayName(){
         return displayName;
+    }
+
+
+
+    public static Tag setValue(String tag) {
+        for (Tag t : Tag.values()) {
+            if (t.name().equalsIgnoreCase(tag)) {
+                return t;
+            }
+        }
+        throw new IllegalArgumentException("No enum constant " + tag);
     }
 
     //***END***---------------------------------------------------------------------------------------------------------
