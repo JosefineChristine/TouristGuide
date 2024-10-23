@@ -70,5 +70,15 @@ public class TouristAttraction {
         return Objects.hash(name, description, city, tags);
     }
 
+    //***TO STRING METHOD***--------------------------------------------------------------------------------------------
+    @Override
+    public String toString() {
+        return "TouristAttraction{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", city='" + city + '\'' +
+                ", tags=" + tags +
+                '}';
+    }
     //***END***---------------------------------------------------------------------------------------------------------
 }
