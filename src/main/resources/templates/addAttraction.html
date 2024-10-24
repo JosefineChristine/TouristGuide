@@ -17,7 +17,7 @@
     <input class="placeholder" type="text" id="city" th:field="*{city}">
     <div class="tags"><br><label for="tags">Tags:</label>
     <br><th:block th:each="obj : ${tags}">
-        <input type="checkbox" id="tags" th:field="*{tags}" th:value="${obj}" th:text="${obj.getDisplayName()}">
+        <input type="checkbox" id="tags" th:field="*{tags}" th:value="${obj}" th:text="${obj.getTagName()}">
     </th:block> </div>
 
     <br><button class="button" method="submit">Gem</button>

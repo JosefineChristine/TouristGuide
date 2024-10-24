@@ -64,7 +64,7 @@ public class TouristRepository implements ITouristRepository {
                 String name = rs.getString("Name");
 
                 if (name.equalsIgnoreCase(taPrevious.getName())) {
-                    // Same attraction, just add the new tag to the existing list
+                    // Samme attraction, tilføjer nyt tag til den eksisterende liste
                     String tag = rs.getString("Tag name");
                     Tag tagEnum = Tag.setValue(tag);
                     taPrevious.getTags().add(tagEnum);
@@ -105,10 +105,65 @@ public class TouristRepository implements ITouristRepository {
         return touristAttraction;
     }
 
-    //***ADD***---------------------------------------------------------------------------------------------------------
+    //***CREATE***------------------------------------------------------------------------------------------------------
     //TODO lav add metode
     public void addAttraction(TouristAttraction touristAttraction){
-        getAllAttractions().add(touristAttraction);
+        String insertAttractionSQL = "INSERT INTO touristattraction (Name, Description, City) VALUES (?,?,?)";
+        String selectTagIdSQL = "SELECT tag_id FROM tag WHERE name=?";
+        String insertAttractionTagSQL = "INSERT INTO attraction_tags (attraction_id, tag_id) VALUES (?,?)";
+
+        try (Connection con = DriverManager.getConnection(db_url,db_username,db_password)){
+            int attractionId = 0;
+            con.setAutoCommit(false); // transaction begin
+
+            //indsæt attraktion  (hvordan ved vi at det er en ny attraktion vi opretter?)
+            try(PreparedStatement attractionStatement = con.prepareStatement(insertAttractionSQL, Statement.RETURN_GENERATED_KEYS)){
+            attractionStatement.setString(1,touristAttraction.getName());
+            attractionStatement.setString(2, touristAttraction.getDescription());
+            attractionStatement.setString(3, touristAttraction.getCity());
+            attractionStatement.executeUpdate();
+
+            //Få det genererede attraction_id
+                ResultSet generatedKeys = attractionStatement.getGeneratedKeys();
+                if(generatedKeys.next()){
+                    attractionId = generatedKeys.getInt(1);
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+
+            //indsæt tags i attraction_tags tabellen
+            for(Tag tag : touristAttraction.getTags()){
+                int tagId = 0;
+                String tagString = tag.getTagName();
+
+                // Hent tag_id fra tag-tabellen
+                try (PreparedStatement tagStatement = con.prepareStatement(selectTagIdSQL)){
+                    tagStatement.setString(1,tagString);
+                    ResultSet tagResultSet = tagStatement.executeQuery();
+
+                    if(tagResultSet.next()){
+                        tagId = tagResultSet.getInt("tag_id");
+                    }
+                } catch (SQLException e){
+                    e.printStackTrace();
+                }
+
+                //Indsæt i attraction_tags
+                try (PreparedStatement attractionTagStatement = con.prepareStatement(insertAttractionTagSQL)){
+                   attractionTagStatement.setInt(1, attractionId);
+                   attractionTagStatement.setInt(2, tagId);
+                   attractionTagStatement.executeUpdate();
+                } catch (SQLException e){
+                    e.printStackTrace();
+                }
+            }
+
+            con.commit(); //transaction end
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
     //***UPDATE***------------------------------------------------------------------------------------------------------

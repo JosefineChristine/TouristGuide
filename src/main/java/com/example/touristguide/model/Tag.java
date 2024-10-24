@@ -1,8 +1,5 @@
 package com.example.touristguide.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public enum Tag {
 
     //***ENUM***--------------------------------------------------------------------------------------------------------
@@ -24,21 +21,20 @@ public enum Tag {
     HISTORIE        ("Historie");
 
     //***ATTRIBUTES***--------------------------------------------------------------------------------------------------
-    private final String displayName;
+    private final String tagName;
 
     //***CONSTRUCTOR***-------------------------------------------------------------------------------------------------
     //Enum constructor må ikke være public af en eller anden årsag...
-    Tag(String displayName){
-        this.displayName = displayName;
+    Tag(String tagName){
+        this.tagName = tagName;
     }
 
     //***GETTER METHOD***-----------------------------------------------------------------------------------------------
-    public String getDisplayName(){
-        return displayName;
+    public String getTagName(){
+        return tagName;
     }
 
-
-
+    //***SETTER METHODS***----------------------------------------------------------------------------------------------
     public static Tag setValue(String tag) {
         for (Tag t : Tag.values()) {
             if (t.name().equalsIgnoreCase(tag)) {
