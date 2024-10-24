@@ -30,9 +30,7 @@ public class TouristRepository implements ITouristRepository {
     public TouristRepository(){
     }
 
-    //***CRUD METHODS***------------------------------------------------------------------------------------------------
-    //TODO lav getAllAttractions()
-
+    //--------------------------------------------***CRUD METHODS***----------------------------------------------------
     //***GET***---------------------------------------------------------------------------------------------------------
     @Override
     public ArrayList<TouristAttraction> getAllAttractions(){
@@ -72,20 +70,19 @@ public class TouristRepository implements ITouristRepository {
                     taPrevious.getTags().add(tagEnum);
 
                 } else {
-                    // New attraction, reset the tags list
+                    // ny attraction, resetter tags list
                     String description = rs.getString("Description");
                     String city = rs.getString("City");
                     String tag = rs.getString("Tag name");
                     Tag tagEnum = Tag.setValue(tag);
 
-                    // Create a new list of tags for the new attraction
+                    // opretter ny liste af tags for nye attraction
                     List<Tag> tags = new ArrayList<>();  // This ensures a new list for each attraction
                     tags.add(tagEnum);
 
-                    // Update taPrevious with the new attraction details
+                    // opdaterer taPrevious med ny attraction info
                     taPrevious = new TouristAttraction(name, description, city, tags);
 
-                    // Add the new attraction to the list
                     attractions.add(taPrevious);
                 }
             }
@@ -100,7 +97,7 @@ public class TouristRepository implements ITouristRepository {
     //***FIND***--------------------------------------------------------------------------------------------------------
     public TouristAttraction findAttractionByName(String name){
         TouristAttraction touristAttraction = null;
-        for (TouristAttraction touristAttraction1 : attractions){
+        for (TouristAttraction touristAttraction1 : getAllAttractions()){
             if (touristAttraction1.getName().equalsIgnoreCase(name)){
                 touristAttraction = touristAttraction1;
             }
@@ -108,12 +105,14 @@ public class TouristRepository implements ITouristRepository {
         return touristAttraction;
     }
 
-    //***/attractions/add***--------------------------------------------------------------------------------------------
+    //***ADD***---------------------------------------------------------------------------------------------------------
+    //TODO lav add metode
     public void addAttraction(TouristAttraction touristAttraction){
         getAllAttractions().add(touristAttraction);
     }
 
-    //***/attractions/{name}/update***----------------------------------------------------------------------------------
+    //***UPDATE***------------------------------------------------------------------------------------------------------
+    //TODO lav update til sidst!
     public void updateAttraction(TouristAttraction touristAttraction) {
         for (TouristAttraction attraction : attractions) {
             if (attraction.getName().equals(touristAttraction.getName())) {
@@ -126,7 +125,8 @@ public class TouristRepository implements ITouristRepository {
         }
     }
 
-    //***/attractions/{name}/remove***----------------------------------------------------------------------------------
+    //***DELETE***------------------------------------------------------------------------------------------------------
+    //TODO lav remove metode
     public void removeAttraction(TouristAttraction touristAttraction){
         attractions.remove(touristAttraction);
     }
