@@ -14,7 +14,7 @@
         </tr>
     <tbody>
     <tr th:each="tags : ${tagsFromAttraction}">
-        <td th:text="${tags.getDisplayName()}"></td>
+        <td th:text="${tags.getTagName()}"></td>
     </tr>
     </tbody>
 </table>

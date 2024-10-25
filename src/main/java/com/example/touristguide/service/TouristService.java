@@ -40,8 +40,16 @@ public class TouristService {
                 touristRepository.removeAttraction(touristAttraction);
     }
 
-    public List<Tag> getTagsFromAttraction(String name){
+    public List<String> getTagsFromAttraction(String name){
         return touristRepository.getTagsFromAttraction(name);
+    }
+
+    public List<String> getAllCities(){
+        return touristRepository.getAllCities();
+    }
+
+    public List<String> getAllTags(){
+        return touristRepository.getAllTags();
     }
 
     //***END***---------------------------------------------------------------------------------------------------------

@@ -10,13 +10,13 @@ public class TouristAttraction {
     private String name;
     private String description;
     private String city;
-    private List<Tag> tags = new ArrayList<>();
+    private List<String> tags = new ArrayList<>();
 
     //***CONSTRUCTORS***------------------------------------------------------------------------------------------------
     public TouristAttraction(){
     }
 
-    public TouristAttraction(String name, String description, String city, List<Tag> tags) {
+    public TouristAttraction(String name, String description, String city, List<String> tags) {
         this.name = name;
         this.description = description;
         this.city = city;
@@ -48,11 +48,11 @@ public class TouristAttraction {
         this.city = city;
     }
 
-    public List<Tag> getTags(){
+    public List<String> getTags(){
         return tags;
     }
 
-    public void setTags(List<Tag> tags){
+    public void setTags(List<String> tags){
         this.tags = tags;
     }
 
@@ -70,5 +70,15 @@ public class TouristAttraction {
         return Objects.hash(name, description, city, tags);
     }
 
+    //***TO STRING METHOD***--------------------------------------------------------------------------------------------
+    @Override
+    public String toString() {
+        return "TouristAttraction{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", city='" + city + '\'' +
+                ", tags=" + tags +
+                '}';
+    }
     //***END***---------------------------------------------------------------------------------------------------------
 }
