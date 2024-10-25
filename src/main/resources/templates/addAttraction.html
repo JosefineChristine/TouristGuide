@@ -13,11 +13,13 @@
     <input class="placeholder" type="text" id="name" th:field="*{name}">
     <br><label class="addLabel" for="description">Beskrivelse</label>
     <input class="placeholder" type="text" id="description" th:field="*{description}">
-    <br><label class="addLabel "for="city">By</label>
-    <input class="placeholder" type="text" id="city" th:field="*{city}">
+    <br><label class="addLabel" for="city">By</label>
+    <select id="city" name="city" th:field="*{city}">
+        <option th:each="city: ${cities}" th:value="${city}" th:text="${city}"></option>
+    </select>
     <div class="tags"><br><label for="tags">Tags:</label>
-    <br><th:block th:each="obj : ${tags}">
-        <input type="checkbox" id="tags" th:field="*{tags}" th:value="${obj}" th:text="${obj.getTagName()}">
+    <br><th:block th:each="tag : ${tags}">
+        <input type="checkbox" id="tags" th:field="*{tags}" th:value="${tag}" th:text="${tag}">
     </th:block> </div>
 
     <br><button class="button" method="submit">Gem</button>

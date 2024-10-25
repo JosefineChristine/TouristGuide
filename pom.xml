@@ -45,6 +45,11 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId></groupId>
+            <artifactId></artifactId>
+            <version></version>
+        </dependency>
 
     </dependencies>
 

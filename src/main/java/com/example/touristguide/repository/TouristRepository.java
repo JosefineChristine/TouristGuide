@@ -2,6 +2,7 @@ package com.example.touristguide.repository;
 
 import com.example.touristguide.model.Tag;
 import com.example.touristguide.model.TouristAttraction;
+import com.mysql.cj.protocol.Resultset;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -34,6 +35,7 @@ public class TouristRepository implements ITouristRepository {
     //***GET***---------------------------------------------------------------------------------------------------------
     @Override
     public ArrayList<TouristAttraction> getAllAttractions(){
+        System.out.println("getAllAttractions");
         ArrayList<TouristAttraction> attractions = new ArrayList<>();
 
         try (Connection con = DriverManager.getConnection(db_url, db_username, db_password)) {
@@ -55,8 +57,8 @@ public class TouristRepository implements ITouristRepository {
                  Tag ON Tag.ID = TouristAttraction_Tags.Tag_ID
             ORDER BY
                 Name; """;
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(SQL);
+            Statement stmt = con.createStatement(); //Opretter et statement til at udføre SQL-forespørgsler
+            ResultSet rs = stmt.executeQuery(SQL); //Udfører en SELECT-forespørgsel og returnerer resultaterne som et ResultSet.
 
             TouristAttraction taPrevious = new TouristAttraction("","","",new ArrayList<>());
 
@@ -66,19 +68,17 @@ public class TouristRepository implements ITouristRepository {
                 if (name.equalsIgnoreCase(taPrevious.getName())) {
                     // Samme attraction, tilføjer nyt tag til den eksisterende liste
                     String tag = rs.getString("Tag name");
-                    Tag tagEnum = Tag.setValue(tag);
-                    taPrevious.getTags().add(tagEnum);
+                    taPrevious.getTags().add(tag);
 
                 } else {
                     // ny attraction, resetter tags list
                     String description = rs.getString("Description");
                     String city = rs.getString("City");
                     String tag = rs.getString("Tag name");
-                    Tag tagEnum = Tag.setValue(tag);
 
                     // opretter ny liste af tags for nye attraction
-                    List<Tag> tags = new ArrayList<>();  // This ensures a new list for each attraction
-                    tags.add(tagEnum);
+                    List<String> tags = new ArrayList<>();  // This ensures a new list for each attraction
+                    tags.add(tag);
 
                     // opdaterer taPrevious med ny attraction info
                     taPrevious = new TouristAttraction(name, description, city, tags);
@@ -92,7 +92,6 @@ public class TouristRepository implements ITouristRepository {
         }
         return attractions;
     }
-
 
     //***FIND***--------------------------------------------------------------------------------------------------------
     public TouristAttraction findAttractionByName(String name){
@@ -108,62 +107,96 @@ public class TouristRepository implements ITouristRepository {
     //***CREATE***------------------------------------------------------------------------------------------------------
     //TODO lav add metode
     public void addAttraction(TouristAttraction touristAttraction){
-        String insertAttractionSQL = "INSERT INTO touristattraction (Name, Description, City) VALUES (?,?,?)";
-        String selectTagIdSQL = "SELECT tag_id FROM tag WHERE name=?";
-        String insertAttractionTagSQL = "INSERT INTO attraction_tags (attraction_id, tag_id) VALUES (?,?)";
+        System.out.println("Add attraction");
+        String getCityIdSQL ="SELECT city_id FROM City WHERE city_name = ?";
+        String insertAttractionSQL = "INSERT INTO touristattraction (touristAttraction_name, touristAttraction_description, city_id) VALUES (?,?,?)";
+        String selectTagIdSQL = "SELECT tag_id FROM Tag WHERE tag_name=?";
+        String insertAttractionTagSQL = "INSERT INTO touristAttraction_tags (touristAttraction_id, tag_id) VALUES (?,?)";
 
         try (Connection con = DriverManager.getConnection(db_url,db_username,db_password)){
-            int attractionId = 0;
-            con.setAutoCommit(false); // transaction begin
+
+            //con.setAutoCommit(false);
+            //transaction begin
+
+            // gette city id
+            PreparedStatement preparedStatement1 = con.prepareStatement(getCityIdSQL);
+            preparedStatement1.setString(1, touristAttraction.getCity());
+            ResultSet resultSet1 = preparedStatement1.executeQuery();
+            resultSet1.next();
+            int cityId = resultSet1.getInt("city_id");
 
             //indsæt attraktion  (hvordan ved vi at det er en ny attraktion vi opretter?)
-            try(PreparedStatement attractionStatement = con.prepareStatement(insertAttractionSQL, Statement.RETURN_GENERATED_KEYS)){
+            PreparedStatement attractionStatement = con.prepareStatement(insertAttractionSQL, Statement.RETURN_GENERATED_KEYS);
             attractionStatement.setString(1,touristAttraction.getName());
             attractionStatement.setString(2, touristAttraction.getDescription());
-            attractionStatement.setString(3, touristAttraction.getCity());
-            attractionStatement.executeUpdate();
-
+            attractionStatement.setInt(3, cityId);
+            int rowsInserted = attractionStatement.executeUpdate();
             //Få det genererede attraction_id
-                ResultSet generatedKeys = attractionStatement.getGeneratedKeys();
-                if(generatedKeys.next()){
-                    attractionId = generatedKeys.getInt(1);
-                }
-            } catch (SQLException e){
-                e.printStackTrace();
+            ResultSet generatedKeys = attractionStatement.getGeneratedKeys();
+            int attractionId = -1;
+            if(generatedKeys.next()){
+                attractionId = generatedKeys.getInt(1);
             }
 
             //indsæt tags i attraction_tags tabellen
-            for(Tag tag : touristAttraction.getTags()){
-                int tagId = 0;
-                String tagString = tag.getTagName();
+            for(String tag : touristAttraction.getTags()){
+                int tagId = -1;
 
                 // Hent tag_id fra tag-tabellen
-                try (PreparedStatement tagStatement = con.prepareStatement(selectTagIdSQL)){
-                    tagStatement.setString(1,tagString);
-                    ResultSet tagResultSet = tagStatement.executeQuery();
-
-                    if(tagResultSet.next()){
-                        tagId = tagResultSet.getInt("tag_id");
-                    }
-                } catch (SQLException e){
-                    e.printStackTrace();
+                PreparedStatement tagStatement = con.prepareStatement(selectTagIdSQL);
+                tagStatement.setString(1,tag);
+                ResultSet tagResultSet = tagStatement.executeQuery();
+                if(tagResultSet.next()){
+                    tagId = tagResultSet.getInt(1);
                 }
 
                 //Indsæt i attraction_tags
-                try (PreparedStatement attractionTagStatement = con.prepareStatement(insertAttractionTagSQL)){
-                   attractionTagStatement.setInt(1, attractionId);
-                   attractionTagStatement.setInt(2, tagId);
-                   attractionTagStatement.executeUpdate();
-                } catch (SQLException e){
-                    e.printStackTrace();
-                }
+                PreparedStatement attractionTagStatement = con.prepareStatement(insertAttractionTagSQL);
+                attractionTagStatement.setInt(1, attractionId);
+                attractionTagStatement.setInt(2, tagId);
+                attractionTagStatement.executeUpdate();
+
             }
 
-            con.commit(); //transaction end
+            //con.commit(); //transaction end
 
         } catch (SQLException e){
             e.printStackTrace();
         }
+    }
+
+    public List<String> getAllCities(){
+        String citySQL = "SELECT * FROM City";
+        List<String> cities = new ArrayList<>();
+        try(Connection con = DriverManager.getConnection(db_url,db_username,db_password)){
+            ResultSet rs = con.createStatement().executeQuery(citySQL);
+
+
+            while (rs.next()){
+                cities.add(rs.getString("city_name"));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return cities;
+    }
+
+    public List<String> getAllTags(){
+        String tagSQL = "SELECT * FROM Tag";
+        List<String> tags = new ArrayList<>();
+        try(Connection con = DriverManager.getConnection(db_url,db_username,db_password)){
+            ResultSet rs = con.createStatement().executeQuery(tagSQL);
+
+
+            while (rs.next()){
+                tags.add(rs.getString("tag_name"));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return tags;
     }
 
     //***UPDATE***------------------------------------------------------------------------------------------------------
@@ -181,14 +214,13 @@ public class TouristRepository implements ITouristRepository {
     }
 
     //***DELETE***------------------------------------------------------------------------------------------------------
-    //TODO lav remove metode
     public void removeAttraction(TouristAttraction touristAttraction){
         attractions.remove(touristAttraction);
     }
 
     //***attractions/{name)/tags***-------------------------------------------------------------------------------------
-    public List<Tag> getTagsFromAttraction(String name){
-        List<Tag> tagsFromAttraction = new ArrayList<>();
+    public List<String> getTagsFromAttraction(String name){
+        List<String> tagsFromAttraction = new ArrayList<>();
         for (TouristAttraction touristAttraction : attractions){
             if(touristAttraction.getName().equalsIgnoreCase(name)) {
                 tagsFromAttraction.addAll(touristAttraction.getTags());
