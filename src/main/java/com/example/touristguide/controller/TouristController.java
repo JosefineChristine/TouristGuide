@@ -73,6 +73,9 @@ public class TouristController {
 
     @PostMapping("/{name}/update")
     public String updateAttraction(@PathVariable("name") String name, @ModelAttribute TouristAttraction touristAttraction, Model model) {
+        model.addAttribute("touristAttraction", touristAttraction);
+        model.addAttribute("cities", touristService.getAllCities());
+        model.addAttribute("tags", touristService.getAllTags());
         touristService.updateAttraction(touristAttraction);
         return "redirect:/attractions";
     }

@@ -41,20 +41,20 @@ public class TouristRepository implements ITouristRepository {
         try (Connection con = DriverManager.getConnection(db_url, db_username, db_password)) {
             String SQL = """
             SELECT
-             TouristAttraction.Name AS Name,
-             TouristAttraction.Description AS Description,
-             TouristAttraction.ID AS ID,
-             City.Name AS City,
-             TouristAttraction_Tags.Tag_ID,
-             Tag.Name AS "Tag name"
+             TouristAttraction.touristAttraction_name AS Name,
+             TouristAttraction.touristAttraction_description AS Description,
+             TouristAttraction.touristAttraction_id AS ID,
+             City.city_name AS City,
+             TouristAttraction_Tags.tag_id AS "Tag ID",
+             Tag.tag_name AS "Tag name"
              FROM
                  TouristAttraction
              INNER JOIN
-                 City ON City.ID = TouristAttraction.City_ID
+                 City ON city.city_id = TouristAttraction.city_id
              INNER JOIN
-                 TouristAttraction_Tags ON TouristAttraction_Tags.Attraction_ID = TouristAttraction.ID
+                 TouristAttraction_Tags ON TouristAttraction_Tags.touristAttraction_id = TouristAttraction.touristAttraction_id
              INNER JOIN
-                 Tag ON Tag.ID = TouristAttraction_Tags.Tag_ID
+                 Tag ON Tag.tag_id = TouristAttraction_Tags.tag_id
             ORDER BY
                 Name; """;
             Statement stmt = con.createStatement(); //Opretter et statement til at udføre SQL-forespørgsler
@@ -105,7 +105,6 @@ public class TouristRepository implements ITouristRepository {
     }
 
     //***CREATE***------------------------------------------------------------------------------------------------------
-    //TODO lav add metode
     public void addAttraction(TouristAttraction touristAttraction){
         System.out.println("Add attraction");
         String getCityIdSQL ="SELECT city_id FROM City WHERE city_name = ?";
@@ -202,21 +201,26 @@ public class TouristRepository implements ITouristRepository {
     //***UPDATE***------------------------------------------------------------------------------------------------------
     //TODO lav update til sidst!
     public void updateAttraction(TouristAttraction touristAttraction) {
-        for (TouristAttraction attraction : attractions) {
-            if (attraction.getName().equals(touristAttraction.getName())) {
-                attraction.setName(touristAttraction.getName());
-                attraction.setDescription(touristAttraction.getDescription());
-                attraction.setCity(touristAttraction.getCity());
-                attraction.setTags(touristAttraction.getTags());
-                return;
-            }
-        }
+        removeAttraction(touristAttraction);
+        addAttraction(touristAttraction);
     }
 
     //***DELETE***------------------------------------------------------------------------------------------------------
     public void removeAttraction(TouristAttraction touristAttraction){
-        attractions.remove(touristAttraction);
+        //attractions.remove(touristAttraction);
+        String deleteSQL = "DELETE FROM Touristattraction WHERE touristAttraction_name = ?";
+
+        try(Connection con = DriverManager.getConnection(db_url,db_username,db_password)){
+            PreparedStatement prepstmt = con.prepareStatement(deleteSQL);
+            prepstmt.setString(1, touristAttraction.getName());
+            prepstmt.executeUpdate();
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
+
+
 
     //***attractions/{name)/tags***-------------------------------------------------------------------------------------
     public List<String> getTagsFromAttraction(String name){
